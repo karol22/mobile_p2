@@ -2,20 +2,23 @@ package com.example.android.movilesp2;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MainActivity extends AppCompatActivity implements Handler.Callback{
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity implements RecyclerFragment.Callback, Handler.Callback {
 
     private Handler dataHandler;
 
@@ -24,6 +27,12 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         dataHandler = new Handler(Looper.getMainLooper(), this);
+
+        RecyclerFragment fragmentito = new RecyclerFragment();
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.add(R.id.container, fragmentito, "fragmento");
+        transaction.commit();
     }
 
     public void request(View v) {
@@ -47,5 +56,14 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback{
             e.printStackTrace();
         }
         return true;
+
     }
+
+    @Override
+    public void ejecutarAccion() {
+        //SwapFragments
+        Log.wtf("Fragment msg", "time to swap");
+    }
+
+
 }
