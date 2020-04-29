@@ -4,9 +4,12 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 
 /**
@@ -59,6 +62,15 @@ public class ImagesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_images, container, false);
+        View v = inflater.inflate(R.layout.fragment_images, container, false);
+        Button b = v.findViewById(R.id.imageButton);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), "ataca, Ramona!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        return v;
     }
 }
