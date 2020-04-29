@@ -29,7 +29,7 @@ import java.util.ArrayList;
 public class ImagesFragment extends Fragment  implements Handler.Callback,View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private RecyclerFragment.Callback listener;
+    private Callback listener;
     private Context context;
     private RecyclerView imageView;
     private Handler dataHandler;
@@ -76,7 +76,7 @@ public class ImagesFragment extends Fragment  implements Handler.Callback,View.O
             @Override
             public void onClick(View v){
                 Toast.makeText(v.getContext(), "ataca, Ramona!", Toast.LENGTH_SHORT).show();
-                //listener.cambio2();
+                listener.cambio2();
             }
         });
         
@@ -86,6 +86,18 @@ public class ImagesFragment extends Fragment  implements Handler.Callback,View.O
     @Override
     public boolean handleMessage(@NonNull Message message) {
         return false;
+    }
+
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+        this.context = context;
+
+        if(context instanceof RecyclerFragment.Callback){
+            listener = (Callback) context;
+        } else{
+            throw new RuntimeException("Activity is not a listener");
+        }
     }
 
     @Override
