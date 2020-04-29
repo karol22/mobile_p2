@@ -10,6 +10,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+
 public class MainActivity extends AppCompatActivity implements RecyclerFragment.Callback {
 
 
@@ -29,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerFragment.
         //SwapFragments
         Log.wtf("Fragment msg", "time to swap");
     }
+
+
 
 
 }

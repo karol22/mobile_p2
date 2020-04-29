@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
@@ -14,6 +15,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 import javax.security.auth.callback.Callback;
 
@@ -23,7 +32,7 @@ import javax.security.auth.callback.Callback;
  * Use the {@link RecyclerFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RecyclerFragment extends Fragment implements Handler.Callback{
+public class RecyclerFragment extends Fragment implements Handler.Callback,View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
@@ -31,6 +40,7 @@ public class RecyclerFragment extends Fragment implements Handler.Callback{
     private Context context;
     private RecyclerView characterView;
     private Handler dataHandler;
+    private ArrayList<Character> characters;
 
     public RecyclerFragment() {
         // Required empty public constructor
@@ -75,7 +85,7 @@ public class RecyclerFragment extends Fragment implements Handler.Callback{
         });
 
         dataHandler = new Handler(Looper.getMainLooper(),this);
-
+        characters= new ArrayList<>();
         Request r = new Request("https://next.json-generator.com/api/json/get/NkaqQvGYd",dataHandler);
         r.start();
         return v;
@@ -95,8 +105,34 @@ public class RecyclerFragment extends Fragment implements Handler.Callback{
 
     @Override
     public boolean handleMessage(@NonNull Message msg) {
+        JSONObject objectData = (JSONObject) msg.obj;
+        try {
+            JSONArray data = objectData.getJSONArray("characters");
+            for(int i=0; i<data.length();i++){
+                JSONObject current = data.getJSONObject(i);
+                int age = current.getInt("age");
+                Character c = new Character(current.getString("name"),Integer.toString(age));
+                characters.add(c);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        CharacterAdapter adapter = new CharacterAdapter(characters,this);
+
+        LinearLayoutManager llm = new LinearLayoutManager(context);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+
+        characterView.setLayoutManager(llm);
+        characterView.setAdapter(adapter);
 
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        int pos = characterView.getChildLayoutPosition(v);
+        Toast.makeText(context,"Name: "+characters.get(pos).getName()+", age:"+characters.get(pos).getAge(), Toast.LENGTH_SHORT).show();
     }
 
     public interface Callback{

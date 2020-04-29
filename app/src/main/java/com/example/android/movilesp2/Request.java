@@ -6,6 +6,7 @@ import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -49,7 +50,7 @@ public class Request extends Thread {
 
                 Log.wtf("JSON", json);
 
-                JSONArray scottFriends = new JSONArray(json);
+                JSONObject scottFriends = new JSONObject(json);
 
                 Message message = new Message();
                 message.obj = scottFriends;
