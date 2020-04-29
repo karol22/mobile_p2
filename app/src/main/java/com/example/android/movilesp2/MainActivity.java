@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity implements Handler.Callback{
@@ -36,6 +37,17 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback{
     public boolean handleMessage(@NonNull Message msg) {
         JSONObject datos = (JSONObject) msg.obj;
         Toast.makeText(this, "Retrieved data from URL "+datos.toString(), Toast.LENGTH_SHORT).show();
+        JSONArray elements = null;
+        try {
+            elements = datos.getJSONArray("characters");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            Toast.makeText(this, "Retrieved data from URL "+elements.get(0).toString(), Toast.LENGTH_SHORT).show();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         return true;
     }
 }
