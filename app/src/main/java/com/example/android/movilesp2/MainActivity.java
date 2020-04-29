@@ -15,16 +15,20 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class MainActivity extends AppCompatActivity implements RecyclerFragment.Callback {
-
+public class MainActivity extends AppCompatActivity implements RecyclerFragment.Callback, ImagesFragment.Callback{
+    RecyclerFragment fragmentito;
+    ImagesFragment fragmentito2;
+    FragmentManager manager;
+    FragmentTransaction transaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        RecyclerFragment fragmentito = new RecyclerFragment();
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
+        fragmentito = new RecyclerFragment();
+        fragmentito2 = new ImagesFragment();
+        manager = getSupportFragmentManager();
+        transaction = manager.beginTransaction();
         transaction.add(R.id.container, fragmentito, "fragmento");
         transaction.commit();
     }
@@ -33,6 +37,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerFragment.
     public void ejecutarAccion() {
         //SwapFragments
         Log.wtf("Fragment msg", "time to swap");
+        manager = getSupportFragmentManager();
+        transaction = manager.beginTransaction();
+        transaction.add(R.id.container, fragmentito2, "fragmento");
+        transaction.commit();
+
     }
 
 
