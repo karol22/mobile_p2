@@ -30,6 +30,8 @@ public class Request extends Thread {
             URL path = new URL(url);
             HttpURLConnection connection = (HttpURLConnection) path.openConnection();
 
+            Log.wtf("Connection", connection.toString());
+
             int answer = connection.getResponseCode();
 
             if(answer == HttpURLConnection.HTTP_OK) {
