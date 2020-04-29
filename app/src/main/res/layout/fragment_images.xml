@@ -16,8 +16,9 @@
         android:src="@drawable/mazo" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/imagesView"
         android:layout_width="match_parent"
-        android:layout_height="552dp" >
+        android:layout_height="552dp">
 
         <ImageView
             android:id="@+id/imageView5"
