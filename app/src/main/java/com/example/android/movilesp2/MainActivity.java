@@ -18,14 +18,12 @@ import org.json.JSONObject;
 public class MainActivity extends AppCompatActivity implements Handler.Callback{
 
     private Handler dataHandler;
-    private Button btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         dataHandler = new Handler(Looper.getMainLooper(), this);
-        btn = findViewById(R.id.button);
     }
 
     public void request(View v) {
