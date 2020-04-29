@@ -10,6 +10,8 @@ import android.os.Bundle;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.util.Log;
+import android.widget.Toast;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -27,14 +29,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerFragment.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         dataHandler = new Handler(Looper.getMainLooper(), this);
-
         RecyclerFragment fragmentito = new RecyclerFragment();
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.add(R.id.container, fragmentito, "fragmento");
         transaction.commit();
     }
-
     public void request(View v) {
         Request r = new Request("https://next.json-generator.com/api/json/get/NkaqQvGYd", dataHandler);
         r.start();
