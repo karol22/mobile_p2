@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity implements Handler.Callback{
 
@@ -28,12 +29,12 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback{
 
     public void request(View v) {
         Request r = new Request("https://next.json-generator.com/api/json/get/NkaqQvGYd", dataHandler);
-        r.run();
+        r.start();
     }
 
     @Override
     public boolean handleMessage(@NonNull Message msg) {
-        JSONArray datos = (JSONArray)msg.obj;
+        JSONObject datos = (JSONObject) msg.obj;
         Toast.makeText(this, "Retrieved data from URL "+datos.toString(), Toast.LENGTH_SHORT).show();
         return true;
     }
