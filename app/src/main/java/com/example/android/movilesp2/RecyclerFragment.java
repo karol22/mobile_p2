@@ -143,5 +143,7 @@ public class RecyclerFragment extends Fragment implements Handler.Callback,View.
 
     public interface Callback{
         void ejecutarAccion();
+
+        void cambio2();
     }
 }

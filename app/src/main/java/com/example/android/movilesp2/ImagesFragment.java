@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -63,17 +64,19 @@ public class ImagesFragment extends Fragment  implements Handler.Callback,View.O
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_recycler, container, false);
+        View v = inflater.inflate(R.layout.fragment_images, container, false);
 
 
-        imageView = v.findViewById(R.id.imageView);
-        Button b = v.findViewById(R.id.imageButton);
+
+
+
+        ImageButton b = v.findViewById(R.id.imageButton);
 
         b.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 Toast.makeText(v.getContext(), "ataca, Ramona!", Toast.LENGTH_SHORT).show();
-                listener.ejecutarAccion();
+                //listener.cambio2();
             }
         });
         
@@ -91,5 +94,6 @@ public class ImagesFragment extends Fragment  implements Handler.Callback,View.O
     }
     public interface Callback{
         void ejecutarAccion();
+        void cambio2();
     }
 }
