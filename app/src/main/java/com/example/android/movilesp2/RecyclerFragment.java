@@ -11,10 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -120,7 +122,7 @@ public class RecyclerFragment extends Fragment implements Handler.Callback,View.
 
         CharacterAdapter adapter = new CharacterAdapter(characters,this);
 
-        LinearLayoutManager llm = new LinearLayoutManager(context);
+        LinearLayoutManager llm = new LinearLayoutManager(this.getContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
 
         characterView.setLayoutManager(llm);
@@ -129,10 +131,14 @@ public class RecyclerFragment extends Fragment implements Handler.Callback,View.
         return true;
     }
 
+
+
     @Override
     public void onClick(View v) {
-        int pos = characterView.getChildLayoutPosition(v);
-        Toast.makeText(context,"Name: "+characters.get(pos).getName()+", age:"+characters.get(pos).getAge(), Toast.LENGTH_SHORT).show();
+        View p = (View) v.getParent();
+        TextView id = p.findViewById(R.id.idCard);
+        Character c = characters.get(Integer.parseInt(id.getText().toString()));
+        Toast.makeText(this.getContext(),"name: "+c.getName()+ " age: "+c.getAge(),Toast.LENGTH_SHORT).show();
     }
 
     public interface Callback{

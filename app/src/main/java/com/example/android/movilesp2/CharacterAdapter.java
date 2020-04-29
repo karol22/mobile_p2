@@ -14,12 +14,13 @@ import java.util.ArrayList;
 
 public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder>{
     public static class CharacterViewHolder extends RecyclerView.ViewHolder{
-        public TextView name,age;
+        public TextView name,age,id;
 
         public CharacterViewHolder(@NonNull View itemView){
             super(itemView);
             name = itemView.findViewById(R.id.nameLabel);
             age = itemView.findViewById(R.id.ageLabel);
+            id= itemView.findViewById(R.id.idCard);
         }
 
     }
@@ -47,6 +48,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
     public void onBindViewHolder(@NonNull CharacterViewHolder holder, int position){
         holder.name.setText(characters.get(position).getName());
         holder.age.setText(characters.get(position).getAge());
+        holder.id.setText(position+"");
     }
 
     @Override
