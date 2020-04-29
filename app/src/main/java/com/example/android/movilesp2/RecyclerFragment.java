@@ -3,9 +3,13 @@ package com.example.android.movilesp2;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,13 +23,14 @@ import javax.security.auth.callback.Callback;
  * Use the {@link RecyclerFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RecyclerFragment extends Fragment {
+public class RecyclerFragment extends Fragment implements Handler.Callback{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
     private Callback listener;
     private Context context;
     private RecyclerView characterView;
+    private Handler dataHandler;
 
     public RecyclerFragment() {
         // Required empty public constructor
@@ -58,6 +63,7 @@ public class RecyclerFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_recycler, container, false);
 
+
         characterView = v.findViewById(R.id.charactersView);
         Button b = v.findViewById(R.id.changeButton);
 
@@ -68,6 +74,10 @@ public class RecyclerFragment extends Fragment {
             }
         });
 
+        dataHandler = new Handler(Looper.getMainLooper(),this);
+
+        Request r = new Request("https://next.json-generator.com/api/json/get/NkaqQvGYd",dataHandler);
+        r.start();
         return v;
     }
 
@@ -81,6 +91,12 @@ public class RecyclerFragment extends Fragment {
         } else{
             throw new RuntimeException("Activity is not a listener");
         }
+    }
+
+    @Override
+    public boolean handleMessage(@NonNull Message msg) {
+
+        return true;
     }
 
     public interface Callback{
